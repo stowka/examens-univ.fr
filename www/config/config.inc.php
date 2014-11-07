@@ -7,12 +7,12 @@
 	 */
 
 	define('DEFAULT_LANGUAGE', 'fr');
-	define('DEFAULT_TITLE', 'to be set'); # TO BE SET
+	define('DEFAULT_TITLE', 'Logiciel d\'organisation des examens');
 
 	define('DEFAULT_ADMIN_EMAIL', 'antoine.degieter@net-production.ch');
 	define('DEFAULT_AUTHOR', 
-		'Antoine De Gieter & Fran&ccedil;ois-Xavier B&eacute;ligat');
-	define('DEFAULT_COMPANY', 'Universit&eacute; de Franche-Comt&eacute;');
+		'Antoine De Gieter & François-Xavier Béligat');
+	define('DEFAULT_COMPANY', 'Université de Franche-Comté');
 	define('DEFAULT_CONTACT_EMAIL', 'contact@examens-univ.fr');
 
 	define('DEFAULT_404_MESSAGE', 'URL not found!');
