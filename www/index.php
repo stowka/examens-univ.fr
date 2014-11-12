@@ -13,8 +13,8 @@
 	session_start();
 
 	# Database
-	require_once 'lib/spdo.class.php';
-	$dbh = SPDO::getInstance();
+	//require_once 'lib/spdo.class.php';
+	//$dbh = SPDO::getInstance();
 
 	/* Uncomment to activate mail library *
 	# PHPMailer
