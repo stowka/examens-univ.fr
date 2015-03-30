@@ -4,76 +4,57 @@
 	 * @author Fran&ccedil;ois-Xavier B&eacute;ligat
 	 * @copyright Universit&eacute; de Franche-Comt&eacute;
 	 */
+    
 	class Promo {
 		private $id;
 		private $nom;
-		private $nbEtudiants;
-		private $matieres;
-
-		$dbh = SPDO::getInstance();
+		private $effectif;
 
 		function __construct() {
 			$this->id = 0;
 			$this->nom = "";
-			$this->nbEtudiants = 0;
-			$this->matieres = array();
+			$this->effectif = 1;
 		}
 
 		public static function initWithId($id) {
 			$instance = new self();
 			$instance->setId($id);
-			
-			# Promo
-			$stmt = $dbh->prepare("SELECT nom, nbEtudiants 
+            $dbh = SPDO::getInstance();
+			$stmt = $dbh->prepare("SELECT nom, effectif 
 									FROM promo 
 									WHERE id = :id;");
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();
 			$row = $stmt->fetch(PDO::FETCH_ASSOC);
 			$stmt->closeCursor();
-
-			$instance->setNom($row['nom']);
-			$instance->setNbEtudiants($row['nb_etudiants']);
-
-			# Matieres
-			$stmt = $dbh->prepare("SELECT matiere AS id
-									FROM contient 
-									WHERE promo = :promo");
-			$stmt->bindParam(":promo", $id, PDO::PARAM_INT);
-			$stmt->execute();
-			$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-			$stmt->closeCursor();
-
-			$matieres = array();
-			foreach ($rows as $row)
-				$matieres[] = Matiere::initWithId($row['id']);
-
-			$instance->setMatieres($matieres);
-			return $instance;
+            $instance->setNom($row['nom']);
+			$instance->setEffectif($row['effectif']);
+            return $instance;
 		}
 
-		public static function initWithData($nom, $nbEtudiants) {
+		public static function initWithData($nom, $effectif) {
 			$instance = new self();
-			$this->setNom($nom);
-			$this->setNbEtudiants($nbEtudiants);
+			$instance->setNom($nom);
+			$instance->setEffectif($effectif);
 			return $instance;
 		}
 
 		function store() {
-			if (!empty($this->nom) && 0 != $this->nbEtudiants) {
-				$stmt = $dbh->prepare("INSERT INTO promo (nom, nb_etudiants)
-										VALUES (:nom, :nb_etudiants);");
+			if (!empty($this->nom) && $this->effectif >= 1) {
+                $dbh = SPDO::getInstance();
+				$stmt = $dbh->prepare("INSERT INTO promo (nom, effectif)
+										VALUES (:nom, :effectif);");
 				$stmt->bindParam(":nom", $this->nom, PDO::PARAM_STR);
-				$stmt->bindParam(":nb_etudiants", $this->nbEtudiants, 
+				$stmt->bindParam(":effectif", $this->effectif, 
 									PDO::PARAM_INT);
 				$stmt->execute();
 				$this->id = $dbh->lastInsertId();
-				$stmt->closeCursor();
-			} else
-				echo "Erreur: le nom ou le nombre d'etudiants n'est pas valide.";
+                $stmt->closeCursor();
+            }
 		}
 
 		public static function getAll() {
+            $dbh = SPDO::getInstance();
 			$stmt = $dbh->prepare("SELECT id FROM promo;");
 			$stmt->execute();
 			$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -85,6 +66,7 @@
 		}
 
 		function delete() {
+            $dbh = SPDO::getInstance();
 			$stmt = $dbh->prepare("DELETE FROM promo WHERE id = :id");
 			$stmt->bindParam(":id", $this->id, PDO::PARAM_INT);
 			$stmt->execute();
@@ -93,17 +75,8 @@
 
 		# /!\ NO CONFIRMATION
 		public static function deleteAll() {
+            $dbh = SPDO::getInstance();
 			$stmt = $dbh->prepare("DELETE * FROM promo;");
-			$stmt->execute();
-			$stmt->closeCursor();
-		}
-
-		function addMatiere($matiere) {
-			$this->matieres[] = $matiere;
-			$stmt = $dbh->prepare("INSERT INTO contient (promo, matiere)
-									VALUES (:promo, :matiere);");
-			$stmt->bindParam(":promo", $this->id, PDO::PARAM_INT);
-			$stmt->bindParam(":matiere", $matiere->getId(), PDO::PARAM_INT);
 			$stmt->execute();
 			$stmt->closeCursor();
 		}
@@ -112,41 +85,31 @@
 		 * Getters
 		 */
 
-		function getId() {
+		public function getId() {
 			return $this->id;
 		}
 
-		function getNom() {
+		public function getNom() {
 			return $this->nom;
 		}
 
-		function getNbEtudiants() {
-			return $this->nbEtudiants;
+		public function getEffectif() {
+			return $this->effectif;
 		}
-
-		function getMatieres() {
-			return $this->matieres;
-		}
-
-
 
 		/*
 		 * Setters
 		 */
 
-		function setId($id) {
-			$this->nom = $id;
+		public function setId($id) {
+			$this->id = $id;
 		}
 
-		function setNom($nom) {
+		public function setNom($nom) {
 			$this->nom = $nom;
 		}
 
-		function setNbEtudiants($nbEtudiants) {
-			$this->nbEtudiants = $nbEtudiants;
-		}
-
-		function setMatieres($matieres) {
-			$this->matieres = $matieres;
+		public function setEffectif($effectif) {
+			$this->effectif = $effectif;
 		}
 	}
