@@ -14,21 +14,16 @@
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		</button>
-		<a class="navbar-brand" href="#">Title</a>
+		<a class="navbar-brand" href="index.php?page=home">Accueil</a>
 	</div>
 
 	<!-- Collect the nav links, forms, and other content for toggling -->
 	<div class="collapse navbar-collapse navbar-ex1-collapse">
 		<ul class="nav navbar-nav">
-			<li class="active"><a href="#">Link</a></li>
-			<li><a href="#">Link</a></li>
+			<li class="active"><a href="index.php?page=examens">Examens</a></li>
+			<li><a href="index.php?page=promos">Promos</a></li>
+			<li><a href="index.php?page=salles">Salles</a></li>
 		</ul>
-		<form class="navbar-form navbar-left" role="search">
-			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Search">
-			</div>
-			<button type="submit" class="btn btn-default">Submit</button>
-		</form>
 		<ul class="nav navbar-nav navbar-right">
 			<li><a href="#">Link</a></li>
 			<li class="dropdown">

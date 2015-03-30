@@ -23,31 +23,14 @@
 	# Models
 	function __autoload($model) {
 		if (file_exists(DEFAULT_MODEL_PATH . strtolower($model) . DEFAULT_MODEL_EXTENSION))
-			includeModel($model);
+			require_once strtolower("models/".$model.".class.php");
 		else
 			throw new Exception("Unable to load $model.");
 	}
 
-	# Set language
-	if (isset($_GET['lang'])
-	&& in_array($_GET['lang'], $authorized_languages)):
-		$lang = $_GET['lang'];
-		$_SESSION['lang'] = $lang;
-		setcookie('lang', $lang, time() + (3600 * 24 * 30));
-	elseif(isset($_SESSION['lang'])):
-		$lang = $_SESSION['lang'];
-	elseif(isset($_COOKIE['lang'])):
-		$lang = $_COOKIE['lang'];
-	else:
-		$lang = DEFAULT_LANGUAGE;
-	endif;
-
-	includeLanguage($lang);
-
 	# Set page
-	if (isset($_GET['page'])
-	&& in_array($_GET['page'], $authorized_pages)):
-		includeController($_GET['page']);
+	if (isset($_GET['page'])):
+		require_once("controllers/" . $_GET['page'] . ".cont.php");
 	else:
-		includeController('home');
+		require_once("controllers/home.cont.php");
 	endif;

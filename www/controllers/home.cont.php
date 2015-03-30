@@ -1,7 +1,7 @@
 <?php
 	/**
-	 * Default home front controller
-	 * @author Antoine De Gieter
+	 * @author François-Xavier Béligat
 	 */
+
 	displayAuthor();
-	includeView('home');
+    require_once("views/home.view.php");

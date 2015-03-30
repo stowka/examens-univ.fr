@@ -10,10 +10,10 @@
 
 	class SPDO {
 		private $_PDOInstance = null;
-		const DEFAULT_SQL_HOST = ''; # TO BE SET
-		const DEFAULT_SQL_USER = ''; # TO BE SET
+		const DEFAULT_SQL_HOST = 'localhost'; # TO BE SET
+		const DEFAULT_SQL_USER = 'root'; # TO BE SET
 		const DEFAULT_SQL_PASSWORD = ''; # TO BE SET
-		const DEFAULT_SQL_DATABASE = ''; # TO BE SET
+		const DEFAULT_SQL_DATABASE = 'exam'; # TO BE SET
 
 		private static $_instance = null;
 

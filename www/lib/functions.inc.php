@@ -59,28 +59,3 @@
 			. ' (' . DEFAULT_COMPANY . ') -->';
 	}
 
-	# Inclusion functions
-	function includeLanguage($lang) {
-		require_once DEFAULT_LANG_PATH . 
-			$lang . DEFAULT_INC_EXTENSION;
-	}
-
-	function includeSection($section) {
-		include_once DEFAULT_SECTION_PATH . 
-			$section . DEFAULT_SECTION_EXTENSION;
-	}
-
-	function includeModel($model) {
-		require_once DEFAULT_MODEL_PATH . 
-			$model . DEFAULT_MODEL_EXTENSION;
-	}
-
-	function includeController($controller) {
-		require_once DEFAULT_CONTROLLER_PATH . 
-			$controller . DEFAULT_CONTROLLER_EXTENSION;
-	}
-
-	function includeView($view) {
-		require_once DEFAULT_VIEW_PATH . 
-			$view . DEFAULT_VIEW_EXTENSION;
-	}

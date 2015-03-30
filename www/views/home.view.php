@@ -1,16 +1,16 @@
 <?php
 	/**
 	 * Default home view
-	 * @author Antoine De Gieter
+	 * @author François-Xavier Béligat
 	 */
 ?>
 
 <!doctype html>
-<html lang="<?php displayLanguage(); ?>">
-	<?php includeSection('head') ?>
+<html>
+	<?php require_once('sections/head.sec.php') ?>
 
 	<body>
-		<?php includeSection('menu'); ?>
+		<?php require_once('sections/menu.sec.php'); ?>
 
 		<div class="container">
 			<div class="row">
@@ -22,6 +22,6 @@
 			</div>
 		</div>
 
-		<?php includeSection('footer') ?>
+	<!--	<?php includeSection('footer') ?> -->
 	</body>
 </html>
